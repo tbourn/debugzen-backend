@@ -22,9 +22,6 @@ jobs:
       - name: Verify Go Installation
         run: go version
 
-      - name: Set Working Directory
-        run: cd debugzen-backend
-
       - name: Install dependencies
         run: go mod tidy
 
