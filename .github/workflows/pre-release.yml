@@ -3,7 +3,7 @@ name: Pre-release
 on:
   push:
     tags:
-      - "v*.*.*-rc.*" # Trigger for pre-releases with the `-rc` format
+      - "v*.*.*-rc.*"
 
 permissions:
   contents: write

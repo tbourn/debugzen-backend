@@ -3,14 +3,14 @@ name: Production Release
 on:
   push:
     tags:
-      - "v*.*.*" # Trigger for all version tags
+      - "v*.*.*"
 
 permissions:
   contents: write
 
 jobs:
   release:
-    if: "! contains(github.ref_name, '-rc')" # Only run if the tag does not include `-rc`
+    if: "! contains(github.ref_name, '-rc')"
     runs-on: ubuntu-latest
 
     steps:
