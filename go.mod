@@ -1,4 +1,4 @@
-module debugzen
+module github.com/tbourn/debugzen-backend
 
 go 1.21.6
 

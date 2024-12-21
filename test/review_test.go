@@ -1,14 +1,15 @@
 package test
 
 import (
-	"debugzen/handlers/review"
-	"debugzen/internal/config"
-	"debugzen/services"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/tbourn/debugzen-backend/handlers/review"
+	"github.com/tbourn/debugzen-backend/internal/config"
+	"github.com/tbourn/debugzen-backend/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sashabaranov/go-openai"

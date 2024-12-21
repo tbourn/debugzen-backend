@@ -1,10 +1,11 @@
 package main
 
 import (
-	"debugzen/handlers/review"
-	"debugzen/internal/config"
-	"debugzen/services"
 	"log"
+
+	"github.com/tbourn/debugzen-backend/handlers/review"
+	"github.com/tbourn/debugzen-backend/internal/config"
+	"github.com/tbourn/debugzen-backend/services"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

@@ -1,11 +1,12 @@
 package review
 
 import (
-	"debugzen/internal/utils"
-	"debugzen/services"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/tbourn/debugzen-backend/internal/utils"
+	"github.com/tbourn/debugzen-backend/services"
 
 	"github.com/gin-gonic/gin"
 )
