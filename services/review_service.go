@@ -29,14 +29,13 @@ func (r *ReviewService) GetCodeReviewFeedback(code string) ([]Feedback, error) {
 
 ` + code + `
 
-Provide a detailed feedback list in the following format:
-1. Title of feedback
-   - Description explaining the feedback in detail.
-2. Title of feedback
-   - Description explaining the feedback in detail.
+Provide feedback in this format:
+1. [Title]
+	- [Description]
+2. [Title]
+	- [Description]
 ...
-
-Each suggestion should be structured with a numbered title followed by a description. Avoid unnecessary text or unrelated information.`
+IMPORTANT: Ensure each suggestion is structured with a numbered title and description. Avoid unnecessary text or unrelated information.`
 
 	if r.Client == nil {
 		return nil, fmt.Errorf("OpenAI client is not initialized")
