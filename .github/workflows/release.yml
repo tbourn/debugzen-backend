@@ -1,15 +1,16 @@
 name: Production Release
 
 on:
-  release:
-    types:
-      - released # Trigger only for final releases
+  push:
+    tags:
+      - "v*.*.*" # Trigger for all version tags
 
 permissions:
   contents: write
 
 jobs:
   release:
+    if: "! contains(github.ref_name, '-rc')" # Only run if the tag does not include `-rc`
     runs-on: ubuntu-latest
 
     steps:
@@ -33,4 +34,4 @@ jobs:
         run: go test ./...
 
       - name: Release info
-        run: echo "Final release created for ${{ github.event.release.tag_name }}"
+        run: echo "Production release workflow triggered for ${{ github.ref_name }}"

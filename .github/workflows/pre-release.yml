@@ -1,9 +1,9 @@
 name: Pre-release
 
 on:
-  release:
-    types:
-      - prereleased # Trigger only for pre-releases
+  push:
+    tags:
+      - "v*.*.*-rc.*" # Trigger for pre-releases with the `-rc` format
 
 permissions:
   contents: write
@@ -33,4 +33,4 @@ jobs:
         run: go test ./...
 
       - name: Pre-release info
-        run: echo "Pre-release created for ${{ github.event.release.tag_name }}"
+        run: echo "Pre-release workflow triggered for ${{ github.ref_name }}"
