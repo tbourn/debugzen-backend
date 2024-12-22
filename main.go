@@ -21,7 +21,7 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{config.GetEnv("BASE_URL", "http://localhost:5173")},
+		AllowOrigins:     []string{config.GetEnv("BASE_URL", "http://localhost:5173"), "https://tbourn.github.io"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
