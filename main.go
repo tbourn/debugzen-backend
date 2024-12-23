@@ -27,6 +27,12 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Welcome to DebugZen Backend API. Use /review to submit your code.",
+		})
+	})
+
 	r.POST("/review", review.NewReviewHandler(reviewService))
 
 	port := config.GetEnv("PORT", "8080")
