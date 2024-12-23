@@ -21,7 +21,7 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{config.GetEnv("BASE_URL", "http://localhost:5173"), "https://tbourn.github.io"},
+		AllowOrigins:     []string{"http://localhost:5173", "http://127.0.0.1:5173", "https://tbourn.github.io"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		AllowCredentials: true,
@@ -29,12 +29,7 @@ func main() {
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "Welcome to DebugZen Backend API. Use /review to submit your code.",
-			"example": `curl -X POST https://debugzen-backend.onrender.com/review \
-	-H "Content-Type: application/json" \
-	-d '{
-	  "code": "def hello_world():\\n    print(\"Hello, World!\")"
-	}'`,
+			"message": "Welcome to DebugZen Backend API. Use /review to submit your code. Example: curl -X POST https://debugzen-backend.onrender.com/review -H \"Content-Type: application/json\" -d '{\"code\": \"def hello_world():\\n    print(\\\"Hello, World!\\\")\"}'",
 		})
 	})
 
