@@ -30,6 +30,11 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Welcome to DebugZen Backend API. Use /review to submit your code.",
+			"example": `curl -X POST https://debugzen-backend.onrender.com/review \
+	-H "Content-Type: application/json" \
+	-d '{
+	  "code": "def hello_world():\\n    print(\"Hello, World!\")"
+	}'`,
 		})
 	})
 
