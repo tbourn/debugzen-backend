@@ -24,6 +24,10 @@ func NewReviewService(client *openai.Client) *ReviewService {
 	}
 }
 
+type ReviewResponse struct {
+	Feedback []Feedback `json:"feedback"`
+}
+
 func (r *ReviewService) GetCodeReviewFeedback(code string) ([]Feedback, error) {
 	prompt := `Review the following code for errors, improvements, and best practices:
 
