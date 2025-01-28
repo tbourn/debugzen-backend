@@ -28,7 +28,8 @@ func TestReviewHandler(t *testing.T) {
 	reviewService := services.NewReviewService(openAIClient)
 
 	router := gin.Default()
-	router.POST("/review", review.NewReviewHandler(reviewService))
+	reviewHandler := review.NewReviewHandler(reviewService)
+	router.POST("/review", reviewHandler.Review)
 
 	t.Run("Successful Code Review", func(t *testing.T) {
 		body := `{"code": "def hello_world(): print('Hello, World!')"}`

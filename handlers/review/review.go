@@ -15,34 +15,45 @@ type ReviewRequest struct {
 	Code string `json:"code" binding:"required"`
 }
 
-const (
-	ErrInvalidPayload   = "Invalid request payload"
-	ErrEmptyCodeInput   = "Code input is required"
-	ErrProcessingReview = "Failed to process the code review"
-)
+// ReviewHandler handles code review requests
+type ReviewHandler struct {
+	Service *services.ReviewService
+}
 
-func NewReviewHandler(reviewService *services.ReviewService) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		var req ReviewRequest
+// NewReviewHandler initializes a new ReviewHandler
+func NewReviewHandler(reviewService *services.ReviewService) *ReviewHandler {
+    return &ReviewHandler{Service: reviewService}
+}
 
-		if err := c.ShouldBindJSON(&req); err != nil {
-			utils.RespondWithError(c, http.StatusBadRequest, ErrInvalidPayload)
-			return
-		}
+// @Summary Submit code for review
+// @Description Sends code to OpenAI for review and feedback
+// @Tags review
+// @Accept  json
+// @Produce  json
+// @Param code body ReviewRequest true "Code to analyze"
+// @Success 200 {object} services.ReviewResponse
+// @Failure 400 {object} map[string]string
+// @Router /review [post]
+func (h *ReviewHandler) Review(c *gin.Context) {
+	var req ReviewRequest
 
-		code := strings.TrimSpace(req.Code)
-		if code == "" {
-			utils.RespondWithError(c, http.StatusBadRequest, ErrEmptyCodeInput)
-			return
-		}
-
-		feedback, err := reviewService.GetCodeReviewFeedback(code)
-		if err != nil {
-			log.Printf("Error fetching feedback: %v", err)
-			utils.RespondWithError(c, http.StatusInternalServerError, ErrProcessingReview)
-			return
-		}
-
-		utils.RespondWithSuccess(c, gin.H{"feedback": feedback})
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.RespondWithError(c, http.StatusBadRequest, "Invalid request payload")
+		return
 	}
+
+	code := strings.TrimSpace(req.Code)
+	if code == "" {
+		utils.RespondWithError(c, http.StatusBadRequest, "Code input is required")
+		return
+	}
+
+	feedback, err := h.Service.GetCodeReviewFeedback(code)
+	if err != nil {
+		log.Printf("Error fetching feedback: %v", err)
+		utils.RespondWithError(c, http.StatusInternalServerError, "Failed to process code review")
+		return
+	}
+
+	c.JSON(http.StatusOK, services.ReviewResponse{Feedback: feedback})
 }

@@ -1,0 +1,59 @@
+basePath: /
+definitions:
+  review.ReviewRequest:
+    properties:
+      code:
+        type: string
+    required:
+    - code
+    type: object
+  services.Feedback:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  services.ReviewResponse:
+    properties:
+      feedback:
+        items:
+          $ref: '#/definitions/services.Feedback'
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API for DebugZen Backend.
+  title: DebugZen API
+  version: 1.0.1
+paths:
+  /review:
+    post:
+      consumes:
+      - application/json
+      description: Sends code to OpenAI for review and feedback
+      parameters:
+      - description: Code to analyze
+        in: body
+        name: code
+        required: true
+        schema:
+          $ref: '#/definitions/review.ReviewRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/services.ReviewResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Submit code for review
+      tags:
+      - review
+swagger: "2.0"
