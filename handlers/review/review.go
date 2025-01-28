@@ -21,8 +21,8 @@ type ReviewHandler struct {
 }
 
 // NewReviewHandler initializes a new ReviewHandler
-func NewReviewHandler(service *services.ReviewService) *ReviewHandler {
-	return &ReviewHandler{Service: service}
+func NewReviewHandler(reviewService *services.ReviewService) *ReviewHandler {
+    return &ReviewHandler{Service: reviewService}
 }
 
 // @Summary Submit code for review
